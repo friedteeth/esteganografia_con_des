@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="{% static 'bootstrap-4.5.0-dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+
+        <title>Esteganografía</title>
+    </head>
+
+    <body style="background-color: #333333">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'ocultar' %}">Esteganografía</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {% if ocultar %}active{% endif %}">
+                        <a class="nav-link" href="{% if ocultar %}#{% else %}{% url 'ocultar' %}{% endif %}">
+                            Ocultar
+                        </a>
+                    </li>
+                    <li class="nav-item {% if revelar %}active{% endif %}">
+                        <a class="nav-link" href="{% if revelar %}#{% else %}{% url 'revelar' %}{% endif %}">
+                            Revelar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container d-flex justify-content-center pt-3">
+            {% block content %}{% endblock %}
+        </div>
+
+        <script src="{% static 'jquery-3.5.1/js/jquery.min.js' %}"></script>
+        <script src="{% static 'popper-1.12.9/js/popper.min.js' %}"></script>
+        <script src="{% static 'bootstrap-4.5.0-dist/js/bootstrap.min.js' %}"></script>
+    </body>
+</html>

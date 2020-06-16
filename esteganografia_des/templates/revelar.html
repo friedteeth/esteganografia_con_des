@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card w-75">
+    <div class="card-body">
+        <h3 class="card-title"><i>Revelar el texto</i></h3>
+        <p class="card-text pb-3">
+            Esta aplicacion tiene como proposito 
+            mostrar el funcionamiento de la esteganografía, 
+            haciendo uso del cifrado DES. Introduce tu 
+            imagen y tu llave para buscar un mensaje oculto.
+        </p>
+
+        <div class="row">
+            <div class="col">
+                <!-- IMAGEN -->
+                <div class="form-group">
+                    <label for="id_image"><h4>Imagen:</h4></label>
+                    <input class="form-control" type="file"
+                        name="image" id="id_image"
+                        accept="image/png, image/jpeg">
+                    <small class="form-text text-muted">
+                        Esta sera la imagen en la 
+                        que se buscara un mensaje.
+                    </small>
+                </div>
+            </div>
+            <div class="col">
+                <!-- LLAVE -->
+                <div class="form-group">
+                    <label for="id_key"><h4>Llave:</h4></label>
+                    <input class="form-control" type="text"
+                        name="key" id="id_key">
+                    <small class="form-text text-muted">
+                        Para el cifrado DES la llave debe de 
+                        tener una longitud de 64 bits o 8 
+                        caracteres.
+                    </small>
+                </div>
+                <button class="btn btn-primary float-right">Revelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

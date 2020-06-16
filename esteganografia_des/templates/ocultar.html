@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card w-75">
+    <div class="card-body">
+        <h3 class="card-title"><i>Ocultar el texto</i></h3>
+        <p class="card-text pb-3">
+            Esta aplicacion tiene como proposito 
+            mostrar el funcionamiento de la esteganografía, 
+            haciendo uso del cifrado DES. Introduce tu 
+            imagen, tu llave y tu mensaje a cifrar y ocultar.
+            Al finalizar el proceso se te mostrara la 
+            opcion para descarga.
+        </p>
+
+        <div class="row">
+            <div class="col">
+                <!-- IMAGEN -->
+                <div class="form-group">
+                    <label for="id_image"><h4>Imagen:</h4></label>
+                    <input class="form-control" type="file"
+                        name="image" id="id_image"
+                        accept="image/png, image/jpeg">
+                    <small class="form-text text-muted">
+                        Esta sera la imagen en la 
+                        que se oculte el mensaje.
+                    </small>
+                </div>
+                <!-- LLAVE -->
+                <div class="form-group">
+                    <label for="id_key"><h4>Llave:</h4></label>
+                    <input class="form-control" type="text"
+                        name="key" id="id_key">
+                    <small class="form-text text-muted">
+                        Para el cifrado DES la llave debe de 
+                        tener una longitud de 64 bits o 8 
+                        caracteres.
+                    </small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="id_message"><h4>Mensaje:</h4></label>
+                    <textarea class="form-control" rows="3"
+                        name="image" id="id_message"></textarea>
+                    <small class="form-text text-muted">
+                        En caso de que el mensaje no pueda ser 
+                        cubierto por la imagen, se truncara.
+                    </small>
+                </div>
+                <button class="btn btn-primary float-right">Ocultar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
