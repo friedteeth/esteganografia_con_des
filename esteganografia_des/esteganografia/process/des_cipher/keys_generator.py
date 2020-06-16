@@ -1,5 +1,5 @@
-import utils
-import tables
+from . import utils
+from . import tables
 
 
 def generate(key_string):

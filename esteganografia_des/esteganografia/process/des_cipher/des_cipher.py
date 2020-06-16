@@ -1,17 +1,16 @@
-from keys_generator import generate
+from .keys_generator import generate
 
-import utils
-import tables
+from . import utils
+from . import tables
 
-
+# CONTROLADOR DEL ALGORITMO.
+# SI choice ES 1 SE CIFRA
+# SI choice ES 0 SE DESCIFRA
 def des_control(message, key, choice):
     # OBTIENE LAS LLAVES PARA CADA UNA DE LAS 16 RONDAS
     keys = generate(key)
     # CONVIERTE EL MENSAJE A BINARIO
-    if choice == 0:
-        message = utils.htob(message)
-        
-    elif choice == 1:
+    if choice == 1:
         message = utils.stob(message)
 
     # ROMPE EL MENSAJE EN BLOQUES DE 64 BITS
@@ -21,11 +20,11 @@ def des_control(message, key, choice):
 
     # ITERA Y CIFRA CADA UNO DE LOS BLOQUES
     for block in message_blocks:
-        cipher_message = des_cipher(block, keys)
+        cipher_message = des_cipher(block, keys, choice)
         if choice == 0:
-            output += utils.btos(cipher_message)
+            output += cipher_message
         elif choice == 1:
-            output += utils.btoh(cipher_message)
+            output += cipher_message
     
     return output
 
@@ -42,7 +41,7 @@ def break_message(message):
         message_blocks.append(tmp_message)
     return message_blocks
 
-def des_cipher(block, keys):
+def des_cipher(block, keys, choice):
     # APLICA LA PERMUTACION INICIAL Y RECIBE DOS MITADES
     result = initial_perm(block)
     prev_left = ''
@@ -55,8 +54,10 @@ def des_cipher(block, keys):
         prev_left = next_left
         prev_right = next_right
         next_left = prev_right
-        # next_right = xor(prev_left, feistel(prev_right, keys[i]))
-        next_right = xor(prev_left, feistel(prev_right, keys[15-i]))
+        if choice == 0:
+            next_right = xor(prev_left, feistel(prev_right, keys[15-i]))
+        elif choice == 1:
+            next_right = xor(prev_left, feistel(prev_right, keys[i]))
 
     final_res = utils.transpose(next_right+next_left, tables.pI)
     return final_res
