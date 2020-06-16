@@ -1,60 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card w-75">
-    <div class="card-body">
-        <h3 class="card-title"><i>Ocultar el texto</i></h3>
-        <p class="card-text pb-3">
-            Esta aplicacion tiene como proposito 
-            mostrar el funcionamiento de la esteganografía, 
-            haciendo uso del cifrado DES. Introduce tu 
-            imagen, tu llave y tu mensaje a cifrar y ocultar.
-            Al finalizar el proceso se te mostrara la 
-            opcion para descarga.
-        </p>
+<div class="row justify-content-center">
+    <div class="card w-75 mt-3 mb-3">
+        <div class="card-body">
+            <h3 class="card-title"><i>Ocultar el texto</i></h3>
+            <p class="card-text pb-3">
+                Esta aplicacion tiene como proposito 
+                mostrar el funcionamiento de la esteganografía, 
+                haciendo uso del cifrado DES. Introduce tu 
+                imagen, tu llave y tu mensaje a cifrar y ocultar.
+                Al finalizar el proceso se te mostrara la 
+                opcion para descarga.
+            </p>
 
-        <form action="{% url 'ocultar' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col">
-                    <!-- IMAGEN -->
-                    <div class="form-group">
-                        <h4>{{ form.image.label_tag }}</h4>
-                        {{ form.image }}
-                        <small class="form-text text-muted">
-                            {{ form.image.help_text }}
-                        </small>
-                        {% if form.image.errors %}
-                            <small class="text-danger">{{ form.image.errors }}</small>
-                        {% endif %}
+            <form action="{% url 'ocultar' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <!-- IMAGEN -->
+                        <div class="form-group">
+                            <h4>{{ form.image.label_tag }}</h4>
+                            {{ form.image }}
+                            <small class="form-text text-muted">
+                                {{ form.image.help_text }}
+                            </small>
+                            {% if form.image.errors %}
+                                <small class="text-danger">{{ form.image.errors }}</small>
+                            {% endif %}
+                        </div>
+                        <!-- LLAVE -->
+                        <div class="form-group">
+                            <h4>{{ form.key.label_tag }}</h4>
+                            {{ form.key }}
+                            <small class="form-text text-muted">
+                                {{ form.key.help_text }}
+                            </small>
+                            {% if form.key.errors %}
+                                <small class="text-danger">{{ form.key.errors }}</small>
+                            {% endif %}
+                        </div>
                     </div>
-                    <!-- LLAVE -->
-                    <div class="form-group">
-                        <h4>{{ form.key.label_tag }}</h4>
-                        {{ form.key }}
-                        <small class="form-text text-muted">
-                            {{ form.key.help_text }}
-                        </small>
-                        {% if form.key.errors %}
-                            <small class="text-danger">{{ form.key.errors }}</small>
-                        {% endif %}
+                    <div class="col">
+                        <div class="form-group">
+                            <h4>{{ form.message.label_tag }}</h4>
+                            {{ form.message }}
+                            <small class="form-text text-muted">
+                                {{ form.message.help_text }}
+                            </small>
+                            {% if form.message.errors %}
+                                <small class="text-danger">{{ form.message.errors }}</small>
+                            {% endif %}
+                        </div>
+                        <button class="btn btn-primary float-right">Ocultar</button>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <h4>{{ form.message.label_tag }}</h4>
-                        {{ form.message }}
-                        <small class="form-text text-muted">
-                            {{ form.message.help_text }}
-                        </small>
-                        {% if form.message.errors %}
-                            <small class="text-danger">{{ form.message.errors }}</small>
-                        {% endif %}
-                    </div>
-                    <button class="btn btn-primary float-right">Ocultar</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

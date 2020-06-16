@@ -1,45 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card w-75">
-    <div class="card-body">
-        <h3 class="card-title"><i>Revelar el texto</i></h3>
-        <p class="card-text pb-3">
-            Esta aplicacion tiene como proposito 
-            mostrar el funcionamiento de la esteganografía, 
-            haciendo uso del cifrado DES. Introduce tu 
-            imagen y tu llave para buscar un mensaje oculto.
-        </p>
-
-        <div class="row">
-            <div class="col">
-                <!-- IMAGEN -->
-                <div class="form-group">
-                    <label for="id_image"><h4>Imagen:</h4></label>
-                    <input class="form-control" type="file"
-                        name="image" id="id_image"
-                        accept="image/png, image/jpeg">
-                    <small class="form-text text-muted">
-                        Esta sera la imagen en la 
-                        que se buscara un mensaje.
-                    </small>
+<div class="row justify-content-center">
+    <div class="card w-75 mt-3 mb-3">
+        <div class="card-body">
+            <h3 class="card-title"><i>Revelar el texto</i></h3>
+            <p class="card-text pb-3">
+                Esta aplicacion tiene como proposito 
+                mostrar el funcionamiento de la esteganografía, 
+                haciendo uso del cifrado DES. Introduce tu 
+                imagen y tu llave para buscar un mensaje oculto.
+            </p>
+    
+            <form action="{% url 'revelar' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <!-- IMAGEN -->
+                        <div class="form-group">
+                            <h4>{{ form.image.label_tag }}</h4>
+                            {{ form.image }}
+                            <small class="form-text text-muted">
+                                {{ form.image.help_text }}
+                            </small>
+                            {% if form.image.errors %}
+                                <small class="text-danger">{{ form.image.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- LLAVE -->
+                        <div class="form-group">
+                            <h4>{{ form.key.label_tag }}</h4>
+                            {{ form.key }}
+                            <small class="form-text text-muted">
+                                {{ form.key.help_text }}
+                            </small>
+                            {% if form.key.errors %}
+                                <small class="text-danger">{{ form.key.errors }}</small>
+                            {% endif %}
+                        </div>
+                        <button class="btn btn-primary float-right">Revelar</button>
+                    </div>
                 </div>
-            </div>
-            <div class="col">
-                <!-- LLAVE -->
-                <div class="form-group">
-                    <label for="id_key"><h4>Llave:</h4></label>
-                    <input class="form-control" type="text"
-                        name="key" id="id_key">
-                    <small class="form-text text-muted">
-                        Para el cifrado DES la llave debe de 
-                        tener una longitud de 64 bits o 8 
-                        caracteres.
-                    </small>
-                </div>
-                <button class="btn btn-primary float-right">Revelar</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+{% if message %}
+    <div class="row justify-content-center">
+        <div class="card d-inline-block w-50">
+            <div class="card-body">
+                <h3 class="card-title"><i>Mensaje oculto:</i></h3>
+                <p class="card-text pb-3">
+                    {{ message }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

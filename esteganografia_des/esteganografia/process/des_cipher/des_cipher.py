@@ -15,17 +15,15 @@ def des_control(message, key, choice):
 
     # ROMPE EL MENSAJE EN BLOQUES DE 64 BITS
     message_blocks = break_message(message)
-
     output = ''
 
     # ITERA Y CIFRA CADA UNO DE LOS BLOQUES
     for block in message_blocks:
         cipher_message = des_cipher(block, keys, choice)
         if choice == 0:
-            output += cipher_message
+            output += utils.btos(cipher_message)
         elif choice == 1:
             output += cipher_message
-    
     return output
 
 def break_message(message):
