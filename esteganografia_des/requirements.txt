@@ -1,2 +1,2 @@
-django
-pillow
+django=3.0.7
+pillow=7.1.2
