@@ -36,7 +36,7 @@ def hide(pillow_image, file_name, message, key):
 		break
 	file_name = os.path.splitext(file_name)[0]
 	if not os.path.exists('/tmp/images'):
-    	os.makedirs('/tmp/images')
+		os.makedirs('/tmp/images')
 	image_file = '/tmp/images/{file_name}.png'.format(file_name=file_name)
 	pillow_image.save(image_file, 'PNG')
 	return image_file
