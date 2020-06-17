@@ -7,7 +7,7 @@ class OcultaForm(forms.Form):
     image = forms.ImageField(
         label='Imagen:',
         required=False,
-        validators=[FileExtensionValidator(allowed_extensions=['png'])],
+        # validators=[FileExtensionValidator(allowed_extensions=['png'])],
         help_text='''
             Esta sera la imagen en la 
             que se oculte el mensaje. NOTA 
@@ -38,20 +38,20 @@ class OcultaForm(forms.Form):
             inlegibles.
         ''')
     
-    def clean_image(self):
-        image = self.cleaned_data["image"]
-        pillow_image = Image.open(image)
+    # def clean_image(self):
+    #     image = self.cleaned_data["image"]
+    #     pillow_image = Image.open(image)
 
-        if pillow_image.format.lower() != 'png':
-            raise forms.ValidationError("Formato de imagen no soportado. El unico formato soportado es PNG.")
+    #     if pillow_image.format.lower() != 'png':
+    #         raise forms.ValidationError("Formato de imagen no soportado. El unico formato soportado es PNG.")
 
-        return image
+    #     return image
 
 class RevelaForm(forms.Form):
     image = forms.ImageField(
         label='Imagen:',
         required=False,
-        validators=[FileExtensionValidator(allowed_extensions=['png'])],
+        # validators=[FileExtensionValidator(allowed_extensions=['png'])],
         help_text='''
             Esta sera la imagen en la 
             que se buscara un mensaje.
@@ -68,10 +68,3 @@ class RevelaForm(forms.Form):
             caracteres.
         ''')
     
-    def clean_image(self):
-        image = self.cleaned_data["image"]
-        pillow_image = Image.open(image)
-
-        
-
-        return image

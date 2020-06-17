@@ -1,8 +1,10 @@
 from PIL import Image
 from .des_cipher import des_cipher
 
+import os
 
-def hide(pillow_image, message, key):
+
+def hide(pillow_image, file_name, message, key):
 	pixel_cells = pillow_image.load()
 	width = pillow_image.size[0]
 	height = pillow_image.size[1]
@@ -32,8 +34,9 @@ def hide(pillow_image, message, key):
 		else:
 			continue
 		break
-	image_file = 'C:/Users/loera/Pictures/imagen_sin_secretos.png'
-	pillow_image.save(image_file)
+	file_name = os.path.splitext(file_name)[0]
+	image_file = 'C:/Users/loera/Pictures/{file_name}.png'.format(file_name=file_name)
+	pillow_image.save(image_file, 'PNG')
 	return image_file
 
 def change_last_bit(byte, bit):

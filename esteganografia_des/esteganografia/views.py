@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from PIL import Image
 from . import forms
@@ -14,7 +15,11 @@ def ocultar(request):
 
         if form.is_valid():
             image_data = Image.open(request.FILES.get('image', False))
-            image_file = hide_image.hide(image_data, form.cleaned_data['message'], form.cleaned_data['key'])
+            if image_data.mode != 'RGB':
+                messages.error(request, 'La imagen no puede ser utilizada. Ejige otra porfavor')
+                return redirect('ocultar')
+            file_name = request.FILES.get('image', False).name
+            image_file = hide_image.hide(image_data, file_name, form.cleaned_data['message'], form.cleaned_data['key'])
 
             if os.path.exists(image_file):
                 with open(image_file, 'rb') as fh:
