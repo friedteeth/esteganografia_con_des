@@ -15,6 +15,7 @@ def ocultar(request):
 
         if form.is_valid():
             image_data = Image.open(request.FILES.get('image', False))
+            image_data = image_data.convert('RGB')
             if image_data.mode != 'RGB':
                 messages.error(request, 'La imagen no puede ser utilizada. Ejige otra porfavor')
                 return redirect('ocultar')
